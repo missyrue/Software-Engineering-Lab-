@@ -1,8 +1,8 @@
+"""Screen scholarship applicants using merit scores and income criteria."""
+
 import ast
 import json
-import math
 import operator
-import sys
 
 # Global state
 results = {}
@@ -22,6 +22,7 @@ _ARITHMETIC_OPERATORS = {
 
 
 def _validate_expression(node):
+    """Reject expression nodes outside the supported arithmetic grammar."""
     if isinstance(node, ast.Constant) and type(node.value) in (int, float):
         return
     if isinstance(node, ast.Name) and node.id in {"gpa", "credits"}:
@@ -37,6 +38,7 @@ def _validate_expression(node):
 
 
 def _evaluate_expression(node, variables):
+    """Evaluate one validated arithmetic expression node."""
     if isinstance(node, ast.Constant) and type(node.value) in (int, float):
         return node.value
     if isinstance(node, ast.Name) and node.id in variables:
@@ -56,46 +58,60 @@ def _evaluate_expression(node, variables):
 
 
 def _parse_formula(formula):
+    """Parse and validate a configured merit formula."""
     try:
         expression = ast.parse(formula, mode="eval")
+        _validate_expression(expression.body)
     except (RecursionError, SyntaxError, TypeError) as error:
         raise ValueError(f"Invalid merit formula {formula!r}: {error}") from error
-    _validate_expression(expression.body)
     return expression.body
 
 
-def _evaluate_formula(formula, gpa, credits):
+def _evaluate_formula(formula, gpa, extracurricular_credits):
+    """Evaluate a formula for the supplied applicant values."""
     expression = _parse_formula(formula)
     try:
-        return _evaluate_expression(expression, {"gpa": gpa, "credits": credits})
+        return _evaluate_expression(
+            expression, {"gpa": gpa, "credits": extracurricular_credits}
+        )
     except (ArithmeticError, RecursionError, TypeError) as error:
         raise ValueError(f"Invalid merit formula {formula!r}: {error}") from error
 
 
-def calculate_merit_score(gpa, credits):
-    return _evaluate_formula(MERIT_FORMULA, gpa, credits)
+def calculate_merit_score(gpa, extracurricular_credits):
+    """Calculate an applicant's merit score using the configured formula."""
+    return _evaluate_formula(MERIT_FORMULA, gpa, extracurricular_credits)
 
-def evaluate_applicant(student_id, test_scores, logs=[]):
+
+def evaluate_applicant(student_id, test_scores, logs=None):
+    """Record an applicant's score and return their eligibility."""
+    if logs is None:
+        logs = []
     gpa = test_scores["gpa"]
-    credits = test_scores.get("credits", 0)
+    extracurricular_credits = test_scores.get("credits", 0)
     income = test_scores.get("income", 0)
-    score = calculate_merit_score(gpa, credits)
+    score = calculate_merit_score(gpa, extracurricular_credits)
     eligible = score >= CUTOFF and income < INCOME_LIMIT
     results[student_id] = {"score": score, "eligible": eligible}
-    logs.append("%s scored %s" % (student_id, score))
+    logs.append(f"{student_id} scored {score}")
     return eligible
 
+
 def change_formula(new_formula):
+    """Validate and select a new merit formula."""
     global MERIT_FORMULA
     _evaluate_formula(new_formula, 8.4, 3)
     MERIT_FORMULA = new_formula
 
+
 def persist_results(file="scholarships.json"):
-    f = open(file, "w")
-    f.write(json.dumps(results))
-    f.close()
+    """Write applicant results to a UTF-8 JSON file."""
+    with open(file, "w", encoding="utf-8") as results_file:
+        json.dump(results, results_file)
+
 
 def load_results(file="scholarships.json"):
+    """Load applicant results, reporting file and format errors."""
     try:
         with open(file, encoding="utf-8") as results_file:
             loaded_results = json.load(results_file)
@@ -108,13 +124,17 @@ def load_results(file="scholarships.json"):
     results.clear()
     results.update(loaded_results)
 
-def printShortlist():
+
+def print_shortlist():
+    """Print applicants who meet the scholarship shortlist criteria."""
     print("Shortlisted applicants:")
-    for r in results:
-        if results[r]["eligible"] == True:
-            print(" ", r, "score =", results[r]["score"])
+    for student_id, applicant_result in results.items():
+        if applicant_result["eligible"]:
+            print(" ", student_id, "score =", applicant_result["score"])
+
 
 def main():
+    """Run the scholarship screener for the sample applicants."""
     evaluate_applicant("U001", {"gpa": 9.1, "credits": 4, "income": 450000})
     evaluate_applicant("U002", {"gpa": 7.2, "credits": 1, "income": 300000})
     evaluate_applicant("U003", {"gpa": 12.5, "credits": -3, "income": -1})
@@ -128,6 +148,8 @@ def main():
     evaluate_applicant("U005", {"gpa": 8.4, "credits": 3, "income": 600000})
     persist_results()
     load_results()
-    printShortlist()
+    print_shortlist()
 
-main()
+
+if __name__ == "__main__":
+    main()
