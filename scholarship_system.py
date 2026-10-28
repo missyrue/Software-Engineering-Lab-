@@ -31,7 +31,9 @@ def _validate_expression(node):
         _validate_expression(node.left)
         _validate_expression(node.right)
         return
-    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
+    if isinstance(node, ast.UnaryOp) and isinstance(
+        node.op, (ast.UAdd, ast.USub)
+    ):
         _validate_expression(node.operand)
         return
     raise ValueError("Unsupported expression in merit formula")
@@ -51,7 +53,9 @@ def _evaluate_expression(node, variables):
             _evaluate_expression(node.left, variables),
             _evaluate_expression(node.right, variables),
         )
-    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
+    if isinstance(node, ast.UnaryOp) and isinstance(
+        node.op, (ast.UAdd, ast.USub)
+    ):
         operand = _evaluate_expression(node.operand, variables)
         return operand if isinstance(node.op, ast.UAdd) else -operand
     raise ValueError("Unsupported expression in merit formula")
@@ -63,7 +67,8 @@ def _parse_formula(formula):
         expression = ast.parse(formula, mode="eval")
         _validate_expression(expression.body)
     except (RecursionError, SyntaxError, TypeError) as error:
-        raise ValueError(f"Invalid merit formula {formula!r}: {error}") from error
+        message = f"Invalid merit formula {formula!r}: {error}"
+        raise ValueError(message) from error
     return expression.body
 
 
@@ -75,7 +80,8 @@ def _evaluate_formula(formula, gpa, extracurricular_credits):
             expression, {"gpa": gpa, "credits": extracurricular_credits}
         )
     except (ArithmeticError, RecursionError, TypeError) as error:
-        raise ValueError(f"Invalid merit formula {formula!r}: {error}") from error
+        message = f"Invalid merit formula {formula!r}: {error}"
+        raise ValueError(message) from error
 
 
 def calculate_merit_score(gpa, extracurricular_credits):
