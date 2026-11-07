@@ -1,0 +1,186 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 5, in test_validate_height_and_fastpass_no_crash
+  |     def test_validate_height_and_fastpass_no_crash(s):
+  |                    ^^^
+  |   File "C:\Users\aarun\AppData\Local\Programs\Python\Python312\Lib\site-packages\hypothesis\core.py", line 2334, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 3 distinct failures. (3 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 7, in test_validate_height_and_fastpass_no_crash
+    |     validate_height_and_fastpass(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 3, in validate_height_and_fastpass
+    |     height = int(height_str)
+    |              ^^^^^^^^^^^^^^^
+    | ValueError: invalid literal for int() with base 10: ''
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 9, in test_validate_height_and_fastpass_no_crash
+    |     assert False, f"validate_height_and_fastpass crashed with {s!r}: {exc}"
+    | AssertionError: validate_height_and_fastpass crashed with ':': invalid literal for int() with base 10: ''
+    | assert False
+    | Failing test case: test_validate_height_and_fastpass_no_crash(
+    |     s=':',
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 7, in test_validate_height_and_fastpass_no_crash
+    |     validate_height_and_fastpass(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 2, in validate_height_and_fastpass
+    |     height_str, pass_str = rider_spec.strip().split(':')
+    |     ^^^^^^^^^^^^^^^^^^^^
+    | ValueError: not enough values to unpack (expected 2, got 1)
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 9, in test_validate_height_and_fastpass_no_crash
+    |     assert False, f"validate_height_and_fastpass crashed with {s!r}: {exc}"
+    | AssertionError: validate_height_and_fastpass crashed with '': not enough values to unpack (expected 2, got 1)
+    | assert False
+    | Failing test case: test_validate_height_and_fastpass_no_crash(
+    |     s='',  # or any other generated value
+    | )
+    +---------------- 3 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 7, in test_validate_height_and_fastpass_no_crash
+    |     validate_height_and_fastpass(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 2, in validate_height_and_fastpass
+    |     height_str, pass_str = rider_spec.strip().split(':')
+    |                            ^^^^^^^^^^^^^^^^
+    | AttributeError: 'NoneType' object has no attribute 'strip'
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 9, in test_validate_height_and_fastpass_no_crash
+    |     assert False, f"validate_height_and_fastpass crashed with {s!r}: {exc}"
+    | AssertionError: validate_height_and_fastpass crashed with None: 'NoneType' object has no attribute 'strip'
+    | assert False
+    | Failing test case: test_validate_height_and_fastpass_no_crash(
+    |     s=None,  # or any other generated value
+    | )
+    +------------------------------------
+C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py:5: ExceptionGroup: Hypothesis found 3 distinct failures. (3 sub-exceptions)
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 12, in test_compute_dispatch_throughput_safe
+  |     def test_compute_dispatch_throughput_safe(s):
+  |                    ^^^
+  |   File "C:\Users\aarun\AppData\Local\Programs\Python\Python312\Lib\site-packages\hypothesis\core.py", line 2334, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 3 distinct failures. (3 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 14, in test_compute_dispatch_throughput_safe
+    |     compute_dispatch_throughput(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 12, in compute_dispatch_throughput
+    |     riders = float(riders_str)
+    |              ^^^^^^^^^^^^^^^^^
+    | ValueError: could not convert string to float: ''
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 16, in test_compute_dispatch_throughput_safe
+    |     assert False, f"compute_dispatch_throughput crashed with {s!r}: {exc}"
+    | AssertionError: compute_dispatch_throughput crashed with '/': could not convert string to float: ''
+    | assert False
+    | Failing test case: test_compute_dispatch_throughput_safe(
+    |     s='/',
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 14, in test_compute_dispatch_throughput_safe
+    |     compute_dispatch_throughput(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 11, in compute_dispatch_throughput
+    |     riders_str, mins_str = ride_metric_str.split('/')
+    |     ^^^^^^^^^^^^^^^^^^^^
+    | ValueError: not enough values to unpack (expected 2, got 1)
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 16, in test_compute_dispatch_throughput_safe
+    |     assert False, f"compute_dispatch_throughput crashed with {s!r}: {exc}"
+    | AssertionError: compute_dispatch_throughput crashed with '': not enough values to unpack (expected 2, got 1)
+    | assert False
+    | Failing test case: test_compute_dispatch_throughput_safe(
+    |     s='',  # or any other generated value
+    | )
+    +---------------- 3 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 14, in test_compute_dispatch_throughput_safe
+    |     compute_dispatch_throughput(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 11, in compute_dispatch_throughput
+    |     riders_str, mins_str = ride_metric_str.split('/')
+    |                            ^^^^^^^^^^^^^^^^^^^^^
+    | AttributeError: 'NoneType' object has no attribute 'split'
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 16, in test_compute_dispatch_throughput_safe
+    |     assert False, f"compute_dispatch_throughput crashed with {s!r}: {exc}"
+    | AssertionError: compute_dispatch_throughput crashed with None: 'NoneType' object has no attribute 'split'
+    | assert False
+    | Failing test case: test_compute_dispatch_throughput_safe(
+    |     s=None,  # or any other generated value
+    | )
+    +------------------------------------
+C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py:12: ExceptionGroup: Hypothesis found 3 distinct failures. (3 sub-exceptions)
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 19, in test_resolve_safety_restraint_code_safe
+  |     def test_resolve_safety_restraint_code_safe(s):
+  |                    ^^^
+  |   File "C:\Users\aarun\AppData\Local\Programs\Python\Python312\Lib\site-packages\hypothesis\core.py", line 2334, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 21, in test_resolve_safety_restraint_code_safe
+    |     resolve_safety_restraint_code(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 25, in resolve_safety_restraint_code
+    |     return restraint_types[prefix]
+    |            ~~~~~~~~~~~~~~~^^^^^^^^
+    | KeyError: ''
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 23, in test_resolve_safety_restraint_code_safe
+    |     assert False, f"resolve_safety_restraint_code crashed with {s!r}: {exc}"
+    | AssertionError: resolve_safety_restraint_code crashed with '': ''
+    | assert False
+    | Failing test case: test_resolve_safety_restraint_code_safe(
+    |     s='',  # or any other generated value
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 21, in test_resolve_safety_restraint_code_safe
+    |     resolve_safety_restraint_code(s)
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\processor.py", line 18, in resolve_safety_restraint_code
+    |     prefix = zone_code.strip().upper()[:3]
+    |              ^^^^^^^^^^^^^^^
+    | AttributeError: 'NoneType' object has no attribute 'strip'
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py", line 23, in test_resolve_safety_restraint_code_safe
+    |     assert False, f"resolve_safety_restraint_code crashed with {s!r}: {exc}"
+    | AssertionError: resolve_safety_restraint_code crashed with None: 'NoneType' object has no attribute 'strip'
+    | assert False
+    | Failing test case: test_resolve_safety_restraint_code_safe(
+    |     s=None,  # or any other generated value
+    | )
+    +------------------------------------
+C:\Users\aarun\AppData\Local\Temp\lab7_before_12h441lg\test_processor.py:19: ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+=========================== short test summary info ===========================
+FAILED test_processor.py::test_validate_height_and_fastpass_no_crash - Except...
+FAILED test_processor.py::test_compute_dispatch_throughput_safe - ExceptionGr...
+FAILED test_processor.py::test_resolve_safety_restraint_code_safe - Exception...
+3 failed in 7.01s
